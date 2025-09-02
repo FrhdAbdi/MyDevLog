@@ -1,0 +1,58 @@
+﻿@page "/post/{PostId:int}"
+@using MyDevLog.Components.Shared
+@using MyDevLog.Data
+@inject HttpClient Http
+
+
+@if (CurrentPost != null)
+{
+    <div class="main-container">
+
+        <NavBar />
+
+        <div class="post-container glass-effect">
+            @if (CurrentPost != null && !string.IsNullOrEmpty(CurrentPost.CoverImageFileName))
+            {
+                <img src="@($"{ApiBaseUrl}/images/{CurrentPost.CoverImageFileName}")" alt="@CurrentPost.Title" class="post-cover-image" />
+            }
+            <div class="post-header">
+                <h1 class="post-title">@CurrentPost.Title</h1>
+                <p class="post-metadata">
+                    @CurrentPost.PublishedDate.ToString("MMM dd, yyyy") · @CurrentPost.ReadingTimeInMinutes min read
+                </p>
+            </div>
+
+            <div class="post-content">
+                @((MarkupString)CurrentPost.Content)
+            </div>
+        </div>
+
+    </div>
+}
+else
+{
+    <div class="main-container">
+        <p><em>Loading post...</em></p>
+    </div>
+}
+
+
+@code {
+    [Parameter]
+    public int PostId { get; set; }
+
+    private Post? CurrentPost;
+    private readonly string ApiBaseUrl = "http://localhost:5023";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            CurrentPost = await Http.GetFromJsonAsync<Post>($"{ApiBaseUrl}/api/posts/{PostId}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching post: {ex.Message}");
+        }
+    }
+}

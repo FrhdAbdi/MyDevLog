@@ -1,0 +1,16 @@
+﻿@using MyDevLog.Data
+
+
+<div class="post-card glass-effect">
+    <div>
+        <h4>@PostItem.Title</h4>
+    </div>
+    <div>
+        <p>@PostItem.Summary</p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Post PostItem { get; set; }
+}

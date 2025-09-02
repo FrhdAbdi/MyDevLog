@@ -1,0 +1,51 @@
+﻿@using MyDevLog.API.DTOs
+@using MyDevLog.Data
+@inject HttpClient Http
+
+
+<div class="latest-posts">
+    <h3>Latest Posts</h3>
+
+    @if (latestPosts == null)
+    {
+        <p><em>Loading posts...</em></p>
+    }
+    else
+    {
+        <div class="posts-grid">
+            @foreach (var post in latestPosts)
+            {
+                <a href="/post/@post.Id" class="post-card-link">
+                    <div class="post-card glass-effect">                        
+                        <div class="post-card-content">
+                            <h4>@post.Title</h4>
+                            <p>@post.Summary</p>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private PostSummaryDTO[]? latestPosts;
+    private readonly string ApiBaseUrl = "http://localhost:5023";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            latestPosts = await Http.GetFromJsonAsync<PostSummaryDTO[]>($"{ApiBaseUrl}/api/posts/latest");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching latest posts: {ex.Message}");
+        }
+    }
+
+    private string GetCoverImageUrl(int postId)
+    {
+        return $"{ApiBaseUrl}/api/posts/{postId}/coverimage";
+    }
+}
