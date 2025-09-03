@@ -5,7 +5,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("WebAPI", client =>
+{
+    var baseUrl = builder.Configuration["ApiBaseUrl"];
+    if (string.IsNullOrEmpty(baseUrl))
+    {
+        throw new InvalidOperationException("ApiBaseUrl is not configured.");
+    }
+    client.BaseAddress = new Uri(baseUrl);
+});
 
 var app = builder.Build();
 

@@ -1,7 +1,7 @@
 ﻿@page "/post/{PostId:int}"
 @using MyDevLog.Components.Shared
 @using MyDevLog.Data
-@inject HttpClient Http
+@inject IHttpClientFactory HttpClientFactory
 
 
 @if (CurrentPost != null)
@@ -42,13 +42,17 @@ else
     public int PostId { get; set; }
 
     private Post? CurrentPost;
-    private readonly string ApiBaseUrl = "http://localhost:5023";
+    private string? ApiBaseUrl;
 
     protected override async Task OnInitializedAsync()
     {
+        var client = HttpClientFactory.CreateClient("WebAPI");
+
+        ApiBaseUrl = client.BaseAddress?.ToString().TrimEnd('/');
+
         try
         {
-            CurrentPost = await Http.GetFromJsonAsync<Post>($"{ApiBaseUrl}/api/posts/{PostId}");
+            CurrentPost = await client.GetFromJsonAsync<Post>($"api/posts/{PostId}");
         }
         catch (Exception ex)
         {
