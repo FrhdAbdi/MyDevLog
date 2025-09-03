@@ -18,10 +18,22 @@ public class PostsController : ControllerBase
         _context = context;
     }
 
+
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
+    public async Task<ActionResult<IEnumerable<PostSummaryDTO>>> GetPosts()
     {
-        return await _context.Posts.ToListAsync();
+        var posts = await _context.Posts
+            .OrderByDescending(p => p.PublishedDate)
+            .Select(p => new PostSummaryDTO
+            {
+                Id = p.Id,
+                Title = p.Title,
+                Summary = p.Summary,
+                PublishedDate = p.PublishedDate,
+            })
+            .ToListAsync();
+
+        return Ok(posts);
     }
 
 

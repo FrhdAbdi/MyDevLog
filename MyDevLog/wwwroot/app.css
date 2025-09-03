@@ -320,3 +320,33 @@ body {
 .post-card-content {
     padding: 0 0.5rem;
 }
+
+.all-posts-container {
+    padding: 1.5rem;
+}
+
+.all-posts-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10rem;
+    text-align: center;
+}
+
+.latest-posts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2rem;
+    margin: 0;
+}
+
+.view-all-link {
+    color: var(--secondary-text);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+    .view-all-link:hover {
+        color: var(--accent-color);
+    }
