@@ -1,4 +1,5 @@
-﻿@page "/posts"
+﻿@rendermode InteractiveServer
+@page "/posts"
 @using MyDevLog.API.DTOs
 @using MyDevLog.Components.Shared
 @using MyDevLog.Data
@@ -12,14 +13,23 @@
     <div class="all-posts-container">
         <h1 class="all-posts-title">All Posts</h1>
 
+        <input type="text"
+               class="search-bar glass-effect"
+               placeholder="Search posts by title or summary..."
+               @oninput="OnSearchInput" />
+
         @if (allPosts == null)
         {
             <p><em>Loading posts...</em></p>
         }
+        else if (!filteredPosts.Any())
+        {
+            <p><em>Nothing found for "@searchTerm"...</em></p>
+        }
         else
         {
             <div class="posts-grid">
-                @foreach (var post in allPosts)
+                @foreach (var post in filteredPosts)
                 {
                     <a href="/post/@post.Id" class="post-card-link">
                         <div class="post-card glass-effect">
@@ -39,17 +49,48 @@
 
 @code {
     private PostSummaryDTO[]? allPosts;
+    private List<PostSummaryDTO> filteredPosts = new();
+    private string searchTerm = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         var client = HttpClientFactory.CreateClient("WebAPI");
         try
         {
-            allPosts = await client.GetFromJsonAsync<PostSummaryDTO[]>($"api/posts");
+            allPosts = await client.GetFromJsonAsync<PostSummaryDTO[]>("api/posts");
+            FilterPosts();
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error fetching posts: {ex.Message}");
+            allPosts = Array.Empty<PostSummaryDTO>();
+            filteredPosts = new List<PostSummaryDTO>();
+        }
+    }
+
+    private void OnSearchInput(ChangeEventArgs e)
+    {
+        searchTerm = e.Value?.ToString() ?? string.Empty;
+        FilterPosts();
+    }
+
+    private void FilterPosts()
+    {
+        if (allPosts == null)
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            filteredPosts = allPosts.ToList();
+        }
+        else
+        {
+            filteredPosts = allPosts.Where(p =>
+                p.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                p.Summary.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
+            ).ToList();
         }
     }
 }
