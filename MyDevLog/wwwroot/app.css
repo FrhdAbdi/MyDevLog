@@ -23,6 +23,13 @@
     --token-type-name: #56b6c2;
     --token-property: #e5c07b;
     --token-comment: #7f848e;
+    --social-icon-size: 32px;
+    --social-icon-gap: 1rem;
+    --social-icons-spacing-top: 1.25rem;
+    --social-default-filter: grayscale(1) brightness(0.85);
+    --social-hover-filter: none;
+    --social-hover-bg: rgba(157,78,221,0.06);
+    --social-focus-outline: rgba(157,78,221,0.22);
 }
 
 html[data-theme='light'] {
@@ -47,6 +54,9 @@ html[data-theme='light'] {
     --token-type-name: #059669;
     --token-property: #D97706;
     --token-comment: #6B7280;
+    --social-default-filter: grayscale(1) brightness(1.1);
+    --social-hover-bg: rgba(120,20,200,0.06);
+    --social-focus-outline: rgba(120,20,200,0.22);
 }
 
 body {
@@ -77,7 +87,7 @@ body {
 
 .nav-bar {
     padding: 0.8rem 1.2rem;
-    margin-bottom: 8rem;
+    margin-bottom: 2rem;
     border-radius: 999px;
     border-top: var(--nav-border-top);
 }
@@ -406,3 +416,264 @@ body {
         width: 20px;
         height: 20px;
     }
+
+.about-container {
+    padding: 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto 4rem auto;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.profile-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-picture {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255,255,255,0.06);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), var(--glow-shadow);
+    margin-bottom: 1rem;
+}
+
+.profile-info h2 {
+    font-size: 1.25rem;
+    margin: 0.25rem 0 0;
+    color: var(--text-primary);
+}
+
+.profile-info p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0.25rem 0 0;
+}
+
+.social-links {
+    display: flex;
+    gap: var(--social-icon-gap);
+    margin-top: var(--social-icons-spacing-top);
+    align-items: center;
+    justify-content: center;
+}
+
+    .social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(var(--social-icon-size) + 12px);
+        height: calc(var(--social-icon-size) + 12px);
+        padding: 6px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background-color 0.18s ease, transform 0.18s ease;
+    }
+
+.social-icon-img {
+    width: var(--social-icon-size);
+    height: var(--social-icon-size);
+    object-fit: contain;
+    filter: var(--social-default-filter);
+    transition: filter 0.22s ease, transform 0.18s ease;
+    display: block;
+}
+
+.social-links a:hover,
+.social-links a:focus {
+    background: var(--social-hover-bg);
+    transform: translateY(-3px);
+}
+
+    .social-links a:hover .social-icon-img,
+    .social-links a:focus .social-icon-img {
+        filter: var(--social-hover-filter);
+        transform: translateY(-2px) scale(1.02);
+    }
+
+.social-links a:focus {
+    outline: 2px solid var(--social-focus-outline);
+    outline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+    :root {
+        --social-icon-size: 24px;
+        --social-icon-gap: 0.75rem;
+        --social-icons-spacing-top: 0.9rem;
+    }
+
+    .social-links a {
+        width: calc(var(--social-icon-size) + 10px);
+        height: calc(var(--social-icon-size) + 10px);
+        padding: 5px;
+    }
+}
+
+.content-column {
+    min-width: 0;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.about-me-section p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+
+.interests-section {
+    margin-top: 3.5rem;
+    padding: 0.5rem 0;
+}
+
+.interests-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+    align-content: start;
+}
+
+.interest-card {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 12px;
+    background: var(--glass-bg);
+    border: var(--glass-border);
+    box-shadow: var(--card-glow);
+    transition: transform 0.28s cubic-bezier(.2,.9,.3,1), box-shadow 0.28s ease, border-color 0.28s ease;
+    cursor: default;
+    min-height: 86px;
+}
+
+    .interest-card:hover,
+    .interest-card:focus {
+        transform: translateY(-6px);
+        box-shadow: var(--glow-shadow);
+        border-color: rgba(157,78,221,0.18);
+        outline: none;
+    }
+
+.interest-icon {
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, rgba(157,78,221,0.12), rgba(108,27,177,0.06));
+    border: 1px solid rgba(157,78,221,0.10);
+    color: var(--accent-color-bright);
+    box-shadow: inset 0 -6px 12px rgba(0,0,0,0.18);
+}
+
+.interest-body h4 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.interest-sub {
+    margin: 0.25rem 0 0;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    opacity: 0.95;
+}
+
+.interest-card.small-tags .interest-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.04);
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+    .tag:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--portfolio-btn-hover-shadow);
+    }
+
+@media (max-width: 420px) {
+    .interests-cards {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(260px, 90%);
+        overflow-x: auto;
+        padding-bottom: 6px;
+        gap: 1rem;
+    }
+
+    .interest-card {
+        min-width: 240px;
+    }
+}
+
+.interest-card:focus {
+    box-shadow: 0 18px 50px rgba(109,43,167,0.28);
+    border-color: rgba(157,78,221,0.22);
+}
+
+@media (max-width: 900px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .profile-column {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        gap: 1rem;
+    }
+
+    .profile-picture {
+        width: 88px;
+        height: 88px;
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+    .social-links {
+        margin-top: 0.75rem;
+        gap: 0.6rem;
+    }
+
+    .about-container {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .post-card::after {
+        opacity: 0.6;
+    }
+}

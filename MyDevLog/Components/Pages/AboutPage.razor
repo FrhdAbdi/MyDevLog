@@ -1,0 +1,94 @@
+﻿@page "/about"
+@using MyDevLog.Components.Shared
+@inject IHttpClientFactory HttpClientFactory
+
+@if (ApiBaseUrl is not null)
+{
+    <main class="main-container">
+        <NavBar />
+
+        <section class="about-container glass-effect" aria-labelledby="about-heading">
+            <div class="about-grid">
+
+                <aside class="profile-column" aria-label="Profile column">
+                    <img loading="lazy" src="@($"{ApiBaseUrl}/images/Me.jpg")" alt="Farhad Abdi" class="profile-picture" onerror="this.onerror=null;this.src='/images/avatar-fallback.png'" />
+                    <div class="profile-info">
+                        <h2 id="about-heading">Backend Developer</h2>
+                        <p>B.S. in Computer Engineering</p>
+                    </div>
+
+                    <nav class="social-links" aria-label="Social links">
+                        <a href="https://github.com/FrhdAbdi" title="GitHub" aria-label="GitHub profile">
+                            <img src="@($"{ApiBaseUrl}/images/icons/github.svg")" alt="GitHub Icon" class="social-icon-img" />
+                        </a>
+                        <a href="https://www.linkedin.com/in/farhad-abdi-626154236" title="LinkedIn" aria-label="LinkedIn profile">
+                            <img src="@($"{ApiBaseUrl}/images/icons/linkedin.svg")" alt="LinkedIn Icon" class="social-icon-img" />
+                        </a>
+                        <a href="https://www.instagram.com/thefarhadabdi?igsh=amptemNwMnVya3B2" title="Instagram" aria-label="Instagram profile">
+                            <img src="@($"{ApiBaseUrl}/images/icons/instagram.svg")" alt="Instagram Icon" class="social-icon-img" />
+                        </a>
+                        <a href="mailto:farhad10abdi@gmail.com" title="Mail" aria-label="Mail">
+                            <img src="@($"{ApiBaseUrl}/images/icons/mail.svg")" alt="Mail Icon" class="social-icon-img" />
+                        </a>
+                    </nav>
+                </aside>
+
+                <article class="content-column">
+                    <div class="about-me-section">
+                        <h3 class="section-title">About Me</h3>
+                        <p>
+                            Welcome to my digital space! I'm a passionate developer who finds joy in the art of problem-solving and the elegance of clean code. This journal is my way of documenting the journey — exploring new technologies, deconstructing complex concepts, and sharing what I learn along the way.
+                        </p>
+                    </div>
+
+                    <div class="interests-container interests-section" id="interests">
+                        <h3 class="section-title">Interests</h3>
+
+                        <div class="interests-cards">
+                            <div class="interest-card" tabindex="0" role="group" aria-labelledby="tech-title" aria-describedby="tech-desc">
+                                <div class="interest-body">
+                                    <h4 id="tech-title">Technology</h4>
+                                    <p id="tech-desc" class="interest-sub">Cloud Architecture · DevOps · Open Source</p>
+                                </div>
+                            </div>
+
+                            <div class="interest-card" tabindex="0" role="group" aria-labelledby="ai-title" aria-describedby="ai-desc">
+                                <div class="interest-body">
+                                    <h4 id="ai-title">AI &amp; Machine Learning</h4>
+                                    <p id="ai-desc" class="interest-sub">Modeling, experimentation, and practical ML tools</p>
+                                </div>
+                            </div>
+
+                            <div class="interest-card" tabindex="0" role="group" aria-labelledby="hobby-title" aria-describedby="hobby-desc">
+                                
+                                <div class="interest-body">
+                                    <h4 id="hobby-title">Games</h4>
+                                    <p id="hobby-desc" class="interest-sub">The Last Of Us Part 1 & 2 · Red Dead Redemption 2 · God Of War · The Witcher 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+}
+else
+{
+    <main class="main-container">
+        <NavBar />
+        <div class="about-container">
+            <p><em>Loading…</em></p>
+        </div>
+    </main>
+}
+
+@code {
+    private string? ApiBaseUrl;
+
+    protected override void OnInitialized()
+    {
+        var client = HttpClientFactory.CreateClient("WebAPI");
+        ApiBaseUrl = client.BaseAddress?.ToString().TrimEnd('/');
+    }
+}
