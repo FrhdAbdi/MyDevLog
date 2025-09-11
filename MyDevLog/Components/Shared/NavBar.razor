@@ -1,12 +1,15 @@
-﻿
+﻿@using MyDevLog.Components.Shared
+
 <nav class="nav-bar glass-effect">
-    <div class="nav-links">
+    <div class="nav-content">
         <a href="#">Home</a>
         <a href="#">About</a>
         <a href="#">Blog</a>
         <a href="#">Contact</a>
-    </div>
-    <div>
-        <a href="#" class="nav-portfolio-btn">Portfolio</a>
+
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 0.5rem;">
+            <a href="#" class="nav-portfolio-btn">Portfolio</a>
+            <ThemeToggle />
+        </div>
     </div>
 </nav>
