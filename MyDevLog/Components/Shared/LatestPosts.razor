@@ -1,4 +1,4 @@
-﻿@using MyDevLog.API.DTOs
+﻿@using MyDevLog.DTO
 @using MyDevLog.Data
 @inject IHttpClientFactory HttpClientFactory
 
@@ -11,7 +11,7 @@
 
     @if (latestPosts == null)
     {
-        <p><em>Loading posts...</em></p>
+        <p><em>There are no posts yet...</em></p>
     }
     else
     {

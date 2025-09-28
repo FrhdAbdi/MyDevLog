@@ -1,7 +1,7 @@
 ﻿@rendermode InteractiveServer
 @page "/posts"
-@using MyDevLog.API.DTOs
 @using MyDevLog.Components.Shared
+@using MyDevLog.DTO
 @using MyDevLog.Data
 @inject IHttpClientFactory HttpClientFactory
 
@@ -10,7 +10,7 @@
 
     <NavBar />
 
-    <div class="all-posts-container">
+    <div class="all-posts-container fade-in-up">
         <h1 class="all-posts-title">All Posts</h1>
 
         <input type="text"
@@ -20,7 +20,7 @@
 
         @if (allPosts == null)
         {
-            <p><em>Loading posts...</em></p>
+            <p><em>There are no posts yet...</em></p>
         }
         else if (!filteredPosts.Any())
         {

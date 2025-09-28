@@ -10,7 +10,7 @@
 
         <NavBar />
 
-        <div class="post-container glass-effect">
+        <div class="post-container glass-effect fade-in-up">
             @if (CurrentPost != null && !string.IsNullOrEmpty(CurrentPost.CoverImageFileName))
             {
                 <img src="@($"{ApiBaseUrl}/images/{CurrentPost.CoverImageFileName}")" alt="@CurrentPost.Title" class="post-cover-image" />
