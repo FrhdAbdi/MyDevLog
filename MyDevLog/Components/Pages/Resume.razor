@@ -1,0 +1,124 @@
+﻿@page "/resume"
+@using MyDevLog.Components.Shared
+@inject IHttpClientFactory HttpClientFactory
+
+@if (ApiBaseUrl is not null)
+{
+    <main class="main-container">
+        <NavBar />
+
+        <section class="about-container glass-effect" aria-labelledby="resume-heading">
+            <h1 id="resume-heading" class="visually-hidden">Farhad Abdi's Resume</h1>
+
+            <div class="resume-header-grid fade-in-up">
+
+                <div class="resume-header-picture">
+                    <img loading="lazy" src="@($"{ApiBaseUrl}/images/Me.jpg")" alt="Farhad Abdi" class="profile-picture" onerror="this.onerror=null;this.src='/images/avatar-fallback.png'" />
+                </div>
+
+                <div class="resume-header-summary">
+                    <h3 class="section-title">Professional Summary</h3>
+                    <p class="summary-text">
+                        A detail-oriented Backend Developer with proven experience in designing, developing, and maintaining scalable and robust web applications using the .NET ecosystem. Passionate about crafting clean, efficient code and architecting resilient systems. Adept at problem-solving and collaborating in fast-paced environments to deliver high-quality software solutions.
+                    </p>
+                </div>               
+            </div>
+
+            <hr class="section-divider fade-in-up" />
+
+            <div class="resume-main-content-grid fade-in-up delay-1">
+                <div class="skills-section-resume" id="skills">
+                    <h3 class="section-title">Skills</h3>
+                    <div class="interests-cards">
+                        <div class="interest-card" tabindex="0">
+                            <div class="interest-body">
+                                <h4><i class="bi bi-code-slash"></i> Languages</h4>
+                                <p class="interest-sub">C# · .NET · JavaScript/TS · Python (Basic)</p>
+                            </div>
+                        </div>
+                        <div class="interest-card" tabindex="0">
+                            <div class="interest-body">
+                                <h4><i class="bi bi-database"></i> Databases</h4>
+                                <p class="interest-sub">PostgreSQL · MS SQL Server · SQLite · Redis</p>
+                            </div>
+                        </div>
+                        <div class="interest-card" tabindex="0">
+                            <div class="interest-body">
+                                <h4><i class="bi bi-tools"></i> Tools & Tech</h4>
+                                <p class="interest-sub">Docker · Git · ASP.NET · EF Core · Blazor</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-section">
+                    <h3 class="section-title">Work Experience</h3>
+                    <div class="interests-cards">
+                        <div class="interest-card" tabindex="0">
+                            <div class="interest-body">
+                                <h4><i class="bi bi-buildings"></i> Backend Developer</h4>
+                                <p class="interest-sub" style="margin-bottom: 0.75rem;">Company ABC | 2023 - Present</p>
+                                <ul style="list-style-type: '•  '; padding-left: 1rem; margin-top: 0; color: var(--text-color-secondary); font-size: 0.9rem;">
+                                    <li>Developing and maintaining microservices using .NET 8.</li>
+                                    <li>Implementing message queuing systems with RabbitMQ.</li>
+                                    <li>Designing and optimizing database schemas in PostgreSQL.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="language-section">
+                    <h3 class="section-title">
+                        <i class="bi bi-translate"></i> Languages
+                    </h3>
+                    <div class="interests-cards">
+                        <div class="interest-card" tabindex="0">
+                            <div class="interest-body">
+                                <h4>Persian (Farsi)</h4>
+                                <p class="interest-sub">Native</p>
+                            </div>
+                        </div>
+                        <div class="interest-card" tabindex="0">
+                            <div class="interest-body">
+                                <h4>English</h4>
+                                <p class="interest-sub">Professional</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="education-section">
+                    <h3 class="section-title">Education</h3>
+                    <div class="interests-cards">
+                        <div class="interest-card" tabindex="0">
+                            <div class="interest-body">
+                                <h4><i class="bi bi-mortarboard"></i> B.Sc. in Computer Engineering</h4>
+                                <p class="interest-sub">North Tehran Branch, IAU | 2017 - 2021</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+}
+else
+{
+    <main class="main-container">
+        <NavBar />
+        <div class="about-container">
+            <p><em>Loading…</em></p>
+        </div>
+    </main>
+}
+
+@code {
+    private string? ApiBaseUrl;
+
+    protected override void OnInitialized()
+    {
+        var client = HttpClientFactory.CreateClient("WebAPI");
+        ApiBaseUrl = client.BaseAddress?.ToString().TrimEnd('/');
+    }
+}

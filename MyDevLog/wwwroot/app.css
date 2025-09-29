@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
 
 :root {
     --bg-color: #0D0A14;
@@ -451,39 +451,6 @@ body {
     margin-top: 7rem;
 }
 
-.interests-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-}
-
-.interest-card {
-    padding: 1.5rem;
-    border-radius: 12px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-    .interest-card:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--glow-shadow);
-    }
-
-.interest-body h4 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--text-primary);
-}
-
-.interest-body .interest-sub {
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-}
-
-
 .post-content pre {
     background-color: var(--code-bg);
     padding: 1.5rem;
@@ -697,8 +664,6 @@ body {
     }
 }
 
-
-
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -712,17 +677,266 @@ body {
 }
 
 .fade-in-up {
-    /* Set initial state for delayed animations */
     opacity: 0;
-    /* Apply the animation */
     animation: fadeInUp 0.6s ease-out forwards;
 }
 
-/* Optional: Staggered animation delays */
 .delay-1 {
     animation-delay: 150ms;
 }
 
 .delay-2 {
     animation-delay: 300ms;
+}
+
+.resume-header-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.resume-header-picture {
+    justify-self: center;
+}
+
+    .resume-header-picture .profile-picture {
+        width: 180px;
+        height: 180px;
+        box-shadow: 0 0 25px 5px rgba(173, 112, 237, 0.4);
+        border: 2px solid rgba(173, 112, 237, 0.6);
+    }
+
+.summary-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary-color);
+    line-height: 1.7;
+    text-align: justify;
+}
+
+.section-divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, rgba(173, 112, 237, 0),
+    rgba(173, 112, 237, 0.5),
+    rgba(173, 112, 237, 0)
+    );
+    margin: 3rem 0;
+    position: relative;
+    text-align: center;
+}
+
+    .section-divider::after {
+        content: '\f28a';
+        font-family: 'bootstrap-icons';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--accent-color);
+        background-color: var(--background-color);
+        padding: 0 1rem;
+        font-size: 1.2rem;
+    }
+
+.resume-main-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem 3rem;
+    align-items: start;
+}
+
+.content-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s ease-out;
+}
+
+    .content-card:hover {
+        transform: translateY(-5px);
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+
+.interests-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.interest-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: all 0.3s ease-out;
+    cursor: default;
+}
+
+    .interest-card:hover {
+        transform: translateY(-4px);
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: rgba(173, 112, 237, 0.5);
+    }
+
+.interest-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+    .interest-body h4 {
+        font-size: 1.1rem;
+        color: var(--text-primary-color);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 0;
+    }
+
+        .interest-body h4 i {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+
+.interest-sub {
+    font-size: 0.9rem;
+    color: var(--text-secondary-color);
+    line-height: 1.5;
+    margin: 0;
+    padding-left: 2.25rem;
+}
+
+
+.language-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.language-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease-in-out;
+}
+
+    .language-card:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: rgba(173, 112, 237, 0.3);
+    }
+
+.language-name {
+    color: var(--text-primary-color);
+}
+
+.language-level {
+    color: var(--background-color);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+    .language-level.native {
+        background-color: var(--accent-color);
+    }
+
+    .language-level.professional {
+        background-color: #3498db;
+    }
+
+.experience-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.company-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: contain;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 4px;
+}
+
+.experience-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary-color);
+    margin: 0;
+}
+
+.experience-company-date {
+    font-size: 0.9rem;
+    color: var(--text-secondary-color);
+    margin-top: 4px;
+}
+
+ul.experience-details {
+    list-style-type: none;
+    padding-left: 0.5rem;
+    margin: 0;
+}
+
+    ul.experience-details li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 0.75rem;
+        color: var(--text-secondary-color);
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+        ul.experience-details li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-color);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        ul.experience-details li:last-child {
+            margin-bottom: 0;
+        }
+
+@media (max-width: 992px) {
+    .resume-main-content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .resume-header-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .resume-header-picture {
+        order: -1;
+        justify-self: center;
+    }
+
+    .resume-header-summary {
+        text-align: center;
+    }
+
+    .summary-text {
+        text-align: left;
+    }
 }
