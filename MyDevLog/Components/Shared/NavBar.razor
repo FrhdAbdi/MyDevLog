@@ -12,7 +12,7 @@
             <a href="/resume">Resume</a>
         </div>
 
-        <a href="#" class="nav-portfolio-btn nav-portfolio-desktop">Portfolio</a>
+        <a href="/contact" class="nav-contact-btn nav-contact-desktop">Contact</a>
 
         <button class="hamburger-btn" @onclick="ToggleMenu" aria-label="Toggle navigation menu">
             <span class="bar"></span>
@@ -28,7 +28,7 @@
     <a href="/posts" @onclick="CloseMenu">Blog</a>
     <a href="/resume" @onclick="CloseMenu">Resume</a>
     <hr class="nav-mobile-divider" />
-    <a href="#" class="nav-portfolio-btn" @onclick="CloseMenu">Portfolio</a>
+    <a href="/contact" class="nav-contact-btn" @onclick="CloseMenu">Contact</a>
 </div>
 
 <div class="nav-mobile-backdrop @(isMenuOpen ? "is-open" : "")" @onclick="CloseMenu"></div>

@@ -1,4 +1,6 @@
-using MyDevLog.Components;
+﻿using MyDevLog.Components;
+using MyDevLog.Services;
+using Resend;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,15 @@ builder.Services.AddHttpClient("WebAPI", client =>
     }
     client.BaseAddress = new Uri(baseUrl);
 });
+
+builder.Services.Configure<ResendClientOptions>(options =>
+{
+    options.ApiToken = builder.Configuration["ResendApiKey"];
+});
+
+builder.Services.AddTransient<IResend, ResendClient>();
+
+builder.Services.AddScoped<IEmailService, ResendEmailService>();
 
 var app = builder.Build();
 
