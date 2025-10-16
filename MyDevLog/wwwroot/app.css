@@ -33,20 +33,20 @@
 
 html[data-theme='light'] {
     --bg-color: #F5F3FF;
-    --bg-glow: radial-gradient(at 50% 0%, rgba(120, 20, 200, 0.12) 0px, transparent 70%);
+    --bg-glow: none;
     --accent-color: #6C1BB1;
     --accent-color-bright: #9D4EDD;
     --accent-color-darker: #5A1694;
     --accent-focus-shadow: rgba(108, 27, 177, 0.35);
     --text-primary: #1E1B29;
     --text-secondary: #5a5368;
-    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-bg: rgba(255, 255, 255, 0.45);
     --glass-border: 1px solid rgba(120, 20, 200, 0.2);
     --hover-background-color: rgba(0, 0, 0, 0.05);
     --form-bg-color: #fff;
     --form-border-color: #ced4da;
     --glow-shadow: 0 0 35px rgba(120, 20, 200, 0.25);
-    --nav-border-top: 1px solid rgba(255, 255, 255, 0.7);
+    --nav-border-top: 1px solid rgba(0, 0, 0, 0.08);
     --nav-link-hover-bg: rgba(240, 230, 255, 0.9);
     --contact-btn-bg: var(--accent-color);
     --contact-btn-border: 1px solid transparent;
@@ -99,6 +99,8 @@ body {
     border-top: var(--nav-border-top);
     position: relative;
     z-index: 3000;
+    border: var(--glass-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .nav-content {
@@ -1086,4 +1088,14 @@ a.interest-card:hover {
 
     a.interest-card:hover .interest-sub {
         color: var(--text-color-secondary);
+    }
+
+html[data-theme='light'] .interests-cards .interest-card {
+    background-color: var(--form-bg-color);
+    border: var(--glass-border);
+}
+
+    html[data-theme='light'] .interests-cards .interest-card:hover {
+        border-color: var(--accent-color);
+        box-shadow: 0 4px 15px var(--accent-focus-shadow);
     }
