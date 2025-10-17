@@ -1,0 +1,85 @@
+﻿@page "/projects"
+@rendermode InteractiveServer
+@using MyDevLog.DTO
+@using MyDevLog.Components.Shared
+@inject IHttpClientFactory HttpClientFactory
+
+
+<div class="main-container">
+
+    <NavBar />
+
+    <div class="fade-in-up">
+        <h1 class="all-posts-title">My Open Source Projects</h1>
+
+        @if (repositories == null)
+        {
+            <div class="loading-container">
+                <div class="spinner"></div>
+                <p><em>Loading projects from GitHub...</em></p>
+            </div>
+        }
+        else if (!repositories.Any())
+        {
+            <div class="loading-container">
+                <p><em>No public repositories found.</em></p>
+            </div>
+        }
+        else
+        {
+            <div class="projects-grid">
+                @foreach (var repo in repositories)
+                {
+                    <a href="@repo.Url" target="_blank" rel="noopener noreferrer" class="project-card glass-effect">
+                        <div class="project-card-header">
+                            <h3>@repo.Name</h3>
+                        </div>
+
+                        <p class="project-card-description">@repo.Description</p>
+
+                        <div class="project-card-footer">
+                            <div class="project-languages">
+                                @foreach (var lang in repo.Languages)
+                                {
+                                    <div class="language-item" title="@lang.Name">
+                                        <span class="language-dot" style="background-color: @lang.Color;"></span>
+                                        <span>@lang.Name</span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="project-stats">
+                                <span class="stat-item">
+                                    <i class="bi bi-star"></i>
+                                    @repo.Stars
+                                </span>
+                                <span class="stat-item">
+                                    <i class="bi bi-git"></i>
+                                    @repo.Forks
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private List<GitHubRepositoryDTO>? repositories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = HttpClientFactory.CreateClient("WebAPI");
+        try
+        {
+            var result = await client.GetFromJsonAsync<List<GitHubRepositoryDTO>>("api/github/pinned-repositories");
+            repositories = result;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching repositories: {ex.Message}");
+            repositories = new List<GitHubRepositoryDTO>();
+        }
+    }
+}
